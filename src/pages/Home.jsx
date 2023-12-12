@@ -7,10 +7,11 @@ import ProductList from '../components/ProductList';
 import Whyus from '../components/Whyus';
 import Welcome from '../components/Welcome';
 import Newsletter from '../components/Newsletter';
-import { userThemeContext } from '../ThemeProvider';
+import { ThemeContext, userThemeContext } from '../ThemeProvider';
 
 const Home = () => {
   const {user}= useContext(userThemeContext);
+  const {products, setProducts}= useContext(ThemeContext);
   return (
     <>
     <nav>
@@ -35,7 +36,7 @@ const Home = () => {
     </section>
 
     <section>
-     <ProductList limit={6} /> 
+     <ProductList products={products} limit={6} />
     </section>
 
     <section>

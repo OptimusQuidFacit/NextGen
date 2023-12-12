@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import { Row, Col } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-import { CartThemeContext, ThemeContext } from '../ThemeProvider';
+import { CartThemeContext, ThemeContext, favThemeContext } from '../ThemeProvider';
 import { Add, Favorite, FavoriteBorder, GridGoldenratioOutlined, Search } from '@mui/icons-material';
 import { pricify } from '../utilities';
 
@@ -69,9 +69,10 @@ const IconsContainer= styled.div`
 `
 
 
-const ProductList = ({ filterObject, limit}) => {
+const ProductList = ({products, filterObject, limit}) => {
 
-    const {products, setProducts}= useContext(ThemeContext);
+    
+    const {favs, setFavs} = useContext(favThemeContext);
     const [filteredProducts, setFilteredProducts]=useState(limit?products.slice(0,limit):products);
     
     const handleFilter=(filter)=>{
@@ -129,9 +130,9 @@ const ProductList = ({ filterObject, limit}) => {
     // const removeFav=(id)=>{
     //     setFavs(favs.filter(fav=>fav!==id))
     // }
-    const [favs, setFavs]= useState([])
+    // const [favs, setFavs]= useState([])
     useEffect(()=>{
-       favId && setFavs([...favs, favId])
+        favId && setFavs([...favs, favId]);
         console.log(favs);
     }, [favId])
 

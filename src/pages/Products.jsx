@@ -1,9 +1,10 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import styled from 'styled-components'
 import ProductList from '../components/ProductList'
 import NavBar from '../components/Navbar'
 import { Filter1} from '@mui/icons-material'
 import Footer from '../components/Footer'
+import { ThemeContext } from '../ThemeProvider'
 
 
 
@@ -24,6 +25,7 @@ const Products = () => {
   const [filter, setFilter] = useState({
   
   })
+  const {products, setProducts}= useContext(ThemeContext);
   const handleFilter=(e)=>{
    if (e.target.value==="All"){
       const filteredKeys= Object.keys(filter).filter((key)=>key!==e.target.name)
@@ -88,7 +90,7 @@ console.log(filter);
       </FilterElement>
     </FilterContainer>
     {/* <p>{filter.Category} {filtered.map(filter=><p key={filter.id}>{filter.Name}</p> )}</p> */}
-        <ProductList filterObject={filter} />
+        <ProductList products={products} filterObject={filter} />
     </Wrapper>
     <footer>
 

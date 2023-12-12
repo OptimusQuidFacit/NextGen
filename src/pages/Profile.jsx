@@ -163,12 +163,12 @@ const Profile = () => {
                     <Button className='fw-bold border-none bg-info'> Sell Now </Button>
                     </Link>
                     <div className='d-md-flex mt-md-5 mt-3'>
-                      <Link className='flex-grow-1' style={{textDecoration:'none'}} to={'/'}>
-                      <p style={{cursor:'pointer'}} className=' p-2 bg-secondary text-white mx-3'>Your favourites</p>
+                      <Link className='flex-grow-1' style={{textDecoration:'none'}} to={'/favourites'}>
+                      <p style={{cursor:'pointer'}} className='p-2 bg-secondary text-white mx-3'>Your favourites</p>
                       </Link>
-                      <Link className='flex-grow-1' style={{textDecoration:'none'}} to={'/'}>
+                      <Link className='flex-grow-1' style={{textDecoration:'none'}} to={'/mystore'}>
 
-                      <p style={{cursor:'pointer'}} className=' p-2 bg-secondary text-white mx-3'>Your Store</p>
+                      <p style={{cursor:'pointer'}} className='p-2 bg-secondary text-white mx-3'>Your Store</p>
                       </Link>
                     </div>
                 </Sell>

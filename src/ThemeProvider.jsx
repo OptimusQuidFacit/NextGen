@@ -6,6 +6,7 @@ import { publicRequest, userRequest } from './apiCalls';
  export const ThemeContext= React.createContext();
  export const CartThemeContext= React.createContext();
  export const userThemeContext= React.createContext();
+ export const favThemeContext= React.createContext();
 
 
 
@@ -108,6 +109,7 @@ import { publicRequest, userRequest } from './apiCalls';
     const [cart, setCart]= useState([]);
 
     const [user, setUser]= useState();
+    const [favs, setFavs] = useState([]);
 
 
     // const updateProducts=(newValue)=>{
@@ -154,7 +156,9 @@ import { publicRequest, userRequest } from './apiCalls';
      <ThemeContext.Provider value={{products, setProducts}}>
         <CartThemeContext.Provider value={{cart, setCart, updateCart}}>
         <userThemeContext.Provider value={{user, setUser}}>
+            <favThemeContext.Provider value={{favs, setFavs}}>
             {children}
+            </favThemeContext.Provider>
         </userThemeContext.Provider>
         </CartThemeContext.Provider>
      </ThemeContext.Provider>

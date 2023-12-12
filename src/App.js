@@ -9,6 +9,7 @@ import Profile from "./pages/Profile";
 import Signin from "./pages/Signin";
 import Signup from "./pages/Signup";
 import AddProduct from "./pages/AddProduct";
+import Favourites from "./pages/Favourites";
 
 
 
@@ -27,6 +28,7 @@ function App() {
       <Route  path="/signin" element={<Signin/>}/>
       <Route  path="/signup" element={<Signup/>}/>
       <Route  path="/addproduct" element={<AddProduct/>}/>
+      <Route  path="/favourites" element={<Favourites/>}/>
 
       </Routes>
     </Router>

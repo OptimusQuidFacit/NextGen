@@ -1,7 +1,6 @@
-import axios from 'axios';
 import React, { useState } from 'react'
 import { useEffect } from "react";
-import { publicRequest, userRequest } from './apiCalls';
+import {userRequest } from './apiCalls';
 
  export const ThemeContext= React.createContext();
  export const CartThemeContext= React.createContext();
@@ -137,14 +136,14 @@ import { publicRequest, userRequest } from './apiCalls';
       }, [])
     useEffect(()=>{
 
-        user && userRequest(user.token).get(`/cart/${user._id}`)
+        user && userRequest(user.token).get(`api/cart/${user._id}`)
              .then(res=>res.data&&setCart(res.data.Products))
              .catch(err=>console.log(err));
         let stringedUser=JSON.stringify(user);
         stringedUser&& localStorage.setItem('user', stringedUser)
       }, [user])
     useEffect(()=>{
-        user && userRequest(user.token).put(`/cart/${user._id}`, {
+        user && userRequest(user.token).put(`api/cart/${user._id}`, {
              Products: cart, Total: cart.reduce((sum, item)=>sum + item.Price*item.qty, 0)
          }, )
              .then()

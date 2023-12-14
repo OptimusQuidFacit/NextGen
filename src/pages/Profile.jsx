@@ -1,9 +1,9 @@
 import { Edit, Logout } from '@mui/icons-material';
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext, useState } from 'react'
 import styled from 'styled-components';
 import { userThemeContext } from '../ThemeProvider';
 import NavBar from '../components/Navbar';
-import { Link, Navigate, useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Button } from 'react-bootstrap';
 
 import { getStorage, ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";

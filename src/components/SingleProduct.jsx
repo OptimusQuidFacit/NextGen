@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { Button, Col, Row } from 'react-bootstrap';
 import { Add, Remove } from '@mui/icons-material';
 import { CartThemeContext, ThemeContext } from '../ThemeProvider';
-import axios from 'axios';
+// import axios from 'axios';
 import { pricify } from '../utilities';
 
 
@@ -50,7 +50,7 @@ const Qty=styled.input`
 `
 const SingleProduct = ({id}) => {
     const {products}= useContext(ThemeContext);
-    const {cart, setCart, updateCart}= useContext(CartThemeContext);
+    const {cart, updateCart}= useContext(CartThemeContext);
     const productItem=products.filter(product=>product.id==id)[0];
     
     

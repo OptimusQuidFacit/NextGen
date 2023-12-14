@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react'
+import React, { useContext} from 'react'
 import Announcement from '../components/Announcement';
 import Footer from '../components/Footer';
 import Header from '../components/Header';

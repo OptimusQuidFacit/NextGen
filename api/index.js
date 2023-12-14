@@ -19,9 +19,9 @@ mongoose.connect(process.env.MONGO_URL)
 app.use(express.json())
 app.use(express.urlencoded({extended:true}))
 
-app.use('/users', userRouter);
-app.use('/cart', cartRouter);
-app.use('/products', productRouter);
+app.use('/api/users', userRouter);
+app.use('/api/cart', cartRouter);
+app.use('api/products', productRouter);
 
 const port= process.env.PORT||5000;
 

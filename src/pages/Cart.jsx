@@ -3,10 +3,10 @@ import NavBar from '../components/Navbar'
 import { Button, Col, Modal, Row } from 'react-bootstrap'
 import styled from 'styled-components'
 import Footer from '../components/Footer'
-import { Add, ArrowBack, Delete, Remove, Shop, Shop2 } from '@mui/icons-material'
+import { Add, ArrowBack, Delete, Remove } from '@mui/icons-material'
 import { CartThemeContext, userThemeContext } from '../ThemeProvider'
-import SingleProduct from '../components/SingleProduct'
-import { userRequest } from '../apiCalls'
+// import SingleProduct from '../components/SingleProduct'
+// import { userRequest } from '../apiCalls'
 import { Link } from 'react-router-dom'
 import { pricify } from '../utilities'
 
@@ -126,7 +126,7 @@ const Cart = () => {
                     <Modal.Body>
                         {/* <SingleProduct id={editId}/> */}
                         <div className='mx-auto mt-3 p-3'>
-                            <img style={{width:"100px"}} src={show && editProduct.img}/>
+                            <img style={{width:"100px"}} src={show && editProduct?.img} alt={editProduct?.Name}/>
                         </div> 
                         <InfoRow>
                         {show&&editProduct.Name}

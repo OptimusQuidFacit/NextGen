@@ -44,11 +44,11 @@ const Signin = () => {
     }
 
 const handleClick=(e)=>{
-    publicRequest.post('users/login', loginUser).then(res=>{
+    publicRequest.post('api/users/login', loginUser).then(res=>{
      setUser(res.data)
      let stringedUser=JSON.stringify(res.data);
      localStorage.setItem('user', stringedUser)
-        userRequest(res.data.token).post(`/cart/${res.data._id}`, {UserId:res.data._id,
+        userRequest(res.data.token).post(`api/cart/${res.data._id}`, {UserId:res.data._id,
             Products: [], Total: 0
         }, ).then(res=>console.log(res.data));
         navigate('/');

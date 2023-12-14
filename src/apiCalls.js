@@ -1,5 +1,4 @@
 import axios from "axios";
-import { useContext } from "react";
 import { userThemeContext } from "./ThemeProvider";
 
 export const baseUrl= "http://localhost:5000"

@@ -50,7 +50,7 @@ const Signup = () => {
         // password?.Password===password?.Confirm && setUser({...user, Password:e.target.value})
     }
     const handleClick=(e)=>{
-       !unmatched&&publicRequest.post('/users/register', loginUser).then(res=>console.log(res.data)) 
+       !unmatched&&publicRequest.post('api/users/register', loginUser).then(res=>console.log(res.data)) 
     }
     useEffect(()=>{
         password===confirmPassword?setUnmatched(false):setUnmatched(true)

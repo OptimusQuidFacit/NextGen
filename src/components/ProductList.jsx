@@ -2,8 +2,8 @@ import React, { useContext, useEffect, useState } from 'react';
 import { Row, Col } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-import { CartThemeContext, ThemeContext, favThemeContext } from '../ThemeProvider';
-import { Add, Favorite, FavoriteBorder, GridGoldenratioOutlined, Search } from '@mui/icons-material';
+import { CartThemeContext, favThemeContext } from '../ThemeProvider';
+import { Add, Favorite, FavoriteBorder, Search } from '@mui/icons-material';
 import { pricify } from '../utilities';
 
 

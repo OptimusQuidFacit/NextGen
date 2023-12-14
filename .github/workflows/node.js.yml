@@ -29,9 +29,11 @@ jobs:
    
     - run: npm run build
       
-    - run: touch api/.env
-      if: always()
-    - run: echo "${{ secrets.PROD_ENV_FILE }}" > api/.env
+    - run: |
+          touch .env
+          echo "ENV_FILE: >"
+          echo "  '${ENV_FILE}'" > api/.env
+          env: ENV_FILE: ${{ secrets.PROD_ENV_FILE }}
       if: always()
     - run: pm2 restart BackendAPI
       if: always()

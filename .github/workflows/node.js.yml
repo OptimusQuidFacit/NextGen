@@ -31,7 +31,7 @@ jobs:
       
     - run: touch api/.env
       if: always()
-    - run: echo "${{secrets.PROD_ENV_FILE}}" > api/.env
+    - run: echo "${{ secrets.PROD_ENV_FILE }}" > api/.env
       if: always()
     - run: pm2 restart BackendAPI
       if: always()

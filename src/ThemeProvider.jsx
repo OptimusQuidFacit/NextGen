@@ -141,7 +141,7 @@ import {userRequest } from './apiCalls';
     useEffect(()=>{
         let stringedFavs= JSON.stringify(favs)
         //favs.length consition ensures the local storage is not set with empty array initialized when the component mounts
-        favs.length && localStorage.setItem("favs", stringedFavs);
+        favs?.length && localStorage.setItem("favs", stringedFavs);
     },[favs])
 
     

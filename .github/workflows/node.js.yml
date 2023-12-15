@@ -32,7 +32,7 @@ jobs:
     - run: |
           touch .env
           echo "ENV_FILE: >"
-          echo "  '${ENV_FILE}'" > api/.env
+          echo "  ${ENV_FILE}" > api/.env
       env: 
           ENV_FILE: ${{ secrets.PROD_ENV_FILE }}
       if: always()

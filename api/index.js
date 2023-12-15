@@ -1,4 +1,5 @@
 const express= require('express');
+const path= require('path');
 const mongoose= require('mongoose');
 const cors= require("cors")
 const dotenv= require('dotenv');
@@ -22,6 +23,10 @@ app.use(express.urlencoded({extended:true}))
 app.use('/api/users', userRouter);
 app.use('/api/cart', cartRouter);
 app.use('api/products', productRouter);
+
+
+app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'ejs');
 
 const port= process.env.PORT||5000;
 

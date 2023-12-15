@@ -33,7 +33,7 @@ const signUp= async(req, res)=>{
         from: 'chimkaemewiseman@gmail.com', // sender address
         to: Email, // list of receivers
         subject: 'Email Verification', // Subject line
-        text: `Click the following link to verify your email: ${baseUrl}/users/verify/${user.verificationToken}`
+        text: `Click the following link to verify your email: ${baseUrl}/api/users/verify/${user.verificationToken}`
       };
 
       transporter.sendMail(mailOptions, (error, info)=>{
@@ -50,10 +50,11 @@ const signUp= async(req, res)=>{
 const verifyEmail = async(req, res)=>{
     const user= await userModel.findOne({verificationToken: req.params.id})
     if (user) {
-       const updated= await userModel.updateOne(user,{$set:{
+       const updated= await userModel.findOneAndUpdate(user,{$set:{
             isVerified:true
         }})
-        res.json({msg:"Email succesfully verified",updated});
+        res.render('verification', {Name:updated.Name});
+        //  res.json({msg:"Email succesfully verified",updated});
     }
     else{
         res.status(401).json("Email not recognized in our database")

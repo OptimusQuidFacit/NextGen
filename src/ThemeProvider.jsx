@@ -133,7 +133,18 @@ import {userRequest } from './apiCalls';
     useEffect(()=>{
         let storedUser=localStorage.getItem('user')
        storedUser &&setUser(JSON.parse(storedUser));
+       let myFavs= localStorage.getItem('favs')
+    //    console.log(JSON.parse(myFavs));
+       setFavs(JSON.parse(myFavs));
       }, [])
+
+    useEffect(()=>{
+        let stringedFavs= JSON.stringify(favs)
+        //favs.length consition ensures the local storage is not set with empty array initialized when the component mounts
+        favs.length && localStorage.setItem("favs", stringedFavs);
+    },[favs])
+
+    
     useEffect(()=>{
 
         user && userRequest(user.token).get(`api/cart/${user._id}`)

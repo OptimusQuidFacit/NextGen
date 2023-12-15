@@ -90,7 +90,7 @@ console.log(filter);
       </FilterElement>
     </FilterContainer>
     {/* <p>{filter.Category} {filtered.map(filter=><p key={filter.id}>{filter.Name}</p> )}</p> */}
-        <ProductList products={products} filterObject={filter} />
+        <ProductList products={products} filterObject={filter} title="Our Products" />
     </Wrapper>
     <footer>
 

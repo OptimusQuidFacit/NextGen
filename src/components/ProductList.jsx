@@ -69,7 +69,7 @@ const IconsContainer= styled.div`
 `
 
 
-const ProductList = ({products, filterObject, limit}) => {
+const ProductList = ({products, filterObject, limit, title}) => {
 
     
     const {favs, setFavs} = useContext(favThemeContext);
@@ -133,7 +133,7 @@ const ProductList = ({products, filterObject, limit}) => {
     // const [favs, setFavs]= useState([])
     useEffect(()=>{
         favId && setFavs([...favs, favId]);
-        console.log(favs);
+         console.log(favs);
     }, [favId])
 
     const {updateCart}= useContext(CartThemeContext)
@@ -141,7 +141,7 @@ const ProductList = ({products, filterObject, limit}) => {
   return (
     <div>
         <Wrapper className='container p-4'>
-            <ProductHeading>Our Products</ProductHeading>
+            <ProductHeading>{title}</ProductHeading>
             <Row xs={1} md={2} lg={3}>
                 {
                     filteredProducts
@@ -149,7 +149,7 @@ const ProductList = ({products, filterObject, limit}) => {
                         <Col key={product.id}>
                
                 {favId===product.id &&<p>Added to favourites</p>}
-                <ItemContainer onClick={toggleVisibility}  onMouseOver={()=>toggleVisibility(product.id)} onMouseOut={()=>setVisibleIcon(null)} className='bg-secondary text-white'>
+                <ItemContainer onClick={()=>toggleVisibility(product.id)}  onMouseOver={()=>toggleVisibility(product.id)} onMouseOut={()=>setVisibleIcon(null)} className='bg-secondary text-white'>
                         <Imgcontainer  style={{backgroundColor: visibleIcon === product.id?"lightgrey":""}}>
                         <ItemImg className='img-fluid' src={product.img}/>
                         </Imgcontainer>
@@ -157,7 +157,7 @@ const ProductList = ({products, filterObject, limit}) => {
                             <p>{product.Name}</p>
                             <p>N{pricify(product.Price)}</p>
                         </ItemInfo>
-                        <IconsContainer className='' style={{visibility: visibleIcon === product.id?"visible":"hidden"}}>
+                        <IconsContainer className=' ' style={{visibility: visibleIcon === product.id?"visible":"hidden"}}>
                         {/* <div style={{opacity}} className='bg-white rounded-3 p-3'> */}
                         <Link onClick={()=>toggleFav(product.id)} to={''}>             
                         {favs.includes(product.id)?<Favorite  className='text-primary'/>:<FavoriteBorder className='text-primary'/>}

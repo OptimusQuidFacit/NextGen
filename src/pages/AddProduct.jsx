@@ -76,7 +76,8 @@ const AddProduct = () => {
             Price: "",
             Category: "",
             Brand: "",
-            Condition: ""
+            Condition: "",
+            GPU: ""
     });
     const [emptyfields, setEmptyfields]=useState([])
     const [formisokay, setFormisokay]=useState(false);
@@ -89,6 +90,7 @@ const AddProduct = () => {
     useEffect(()=>{
         Object.entries(newProduct).every(([key, value])=>value!=="")?setFormisokay(true):setFormisokay(false);
     },[newProduct])
+
     const handleTextField=(e)=>{
         setNewProduct({...newProduct, [e.target.name]:e.target.value})
 
@@ -97,7 +99,7 @@ const AddProduct = () => {
        // Object.entries(newProduct).forEach(([key, value])=>value==null&&[...emptyfields, [key]:value])
        setFormsubmitted(true);
        Object.entries(newProduct).forEach(([key, value])=>value==''?!emptyfields.includes(key)&&setEmptyfields(prev=>[...prev, key]):setEmptyfields(prev=>prev.filter(prop=>prop!==key)))
-       formisokay?userRequest(user.token).post(`/products/newproduct/${user?._id}`, newProduct).then(res=>console.log('successfully submitted', res.data)):console.log('You must complete all fields', emptyfields.map(field=>`${field} field cannot be empty`))
+       formisokay?userRequest(user.token).post(`api/products/newproduct/${user?._id}`, newProduct).then(res=>console.log('successfully submitted', res.data)):console.log('You must complete all fields', emptyfields.map(field=>`${field} field cannot be empty`))
     }
     const handleUpload=(e)=>{
         setIsuploading(true);
@@ -142,6 +144,44 @@ const AddProduct = () => {
      console.log(newProduct)
     // console.log(formisokay)
     // console.log(emptyfields)
+    const gpuNameList=(type)=>{
+        switch(type){
+            case "NVIDIA":
+            return [
+                'GeForce RTX 3090',
+                'GeForce RTX 3080',
+                'GeForce RTX 3070',
+                'GeForce RTX 3060 Ti',
+                'GeForce RTX 2080 Ti',
+                'GeForce RTX 2080 Super',
+                'GeForce RTX 2070 Super',
+                'GeForce RTX 2060 Super',
+                'GeForce GTX 1660 Ti',
+                'GeForce GTX 1660 Super',
+                'GeForce GTX 1660',
+                // Add more Nvidia GPUs as needed
+              ];
+              break;
+            case "AMD":
+            return [
+                'Radeon RX 6900 XT',
+                'Radeon RX 6800 XT',
+                'Radeon RX 6700 XT',
+                        'Radeon RX 6600 XT',
+                        'Radeon RX 5700 XT',
+                        'Radeon RX 5700',
+                        'Radeon RX 5600 XT',
+                        'Radeon RX 5500 XT',
+                        'Radeon RX 590',
+                        'Radeon RX 580',
+                        'Radeon RX 570',
+                // Add more Nvidia GPUs as needed
+              ];
+              break;
+              default:
+                return [];
+        }
+    }
   return (
     <>
     <NavBar/>
@@ -294,6 +334,24 @@ const AddProduct = () => {
                 <DetailsContainer>
 
                 <DetailLabel>
+                GPU Name
+                </DetailLabel>
+                <select onChange={handleTextField} name='GPUName' style={{width:"80px"}}>
+                    
+                   {
+                    gpuNameList(newProduct.GPU).map(scr=>
+                        <option value={scr}>
+                            {`${scr}`}
+                        </option>)
+                   }
+                </select>
+                </DetailsContainer>
+                
+                <DetailsContainer>
+
+                    
+
+                <DetailLabel>
                 VRAM
                 </DetailLabel>
                 <select onChange={handleTextField} name='VRAM' style={{width:"70px"}}>
@@ -321,6 +379,25 @@ const AddProduct = () => {
                    }
                 </select>
                 </DetailsContainer>
+
+                <DetailsContainer>
+
+                <DetailLabel>
+                Processor Details
+                </DetailLabel>
+                <Input className={formsubmitted&&newProduct.ProcessorDetails===""?'error':''+"ps-1 ms-1"} name='ProcessorDetails' type='text' placeholder='e.g core i7-10610U' onChange={handleTextField}/>  
+
+                </DetailsContainer>
+                <DetailsContainer>
+
+                <DetailLabel>
+                Base Speed
+                </DetailLabel>
+                <Input style={{width:"100px"}} className={formsubmitted&&newProduct.BaseSpeed===""?'error':''+"ps-1 ms-1"} name='BaseSpeed' type='text' placeholder='e.g 2.2GHz' onChange={handleTextField}/>  
+
+                </DetailsContainer>
+
+
                 <DetailsContainer>
 
                 <DetailLabel>

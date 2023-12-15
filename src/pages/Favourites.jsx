@@ -1,6 +1,8 @@
 import React, { useContext } from 'react'
 import ProductList from '../components/ProductList';
 import { ThemeContext, favThemeContext } from '../ThemeProvider';
+import NavBar from '../components/Navbar';
+import Footer from '../components/Footer';
 
 const Favourites = () => {
     const {products, setProducts}= useContext(ThemeContext);
@@ -9,8 +11,20 @@ const Favourites = () => {
     console.log(favourites)
   return (
     <>
-        <h1 className="text-center fw-bold text-primary">Your Favourites</h1>
-        <ProductList products={favourites}/>
+    <nav>
+      <NavBar/>
+    </nav>
+      { favs.length ? <ProductList products={favourites} title="Your Favourites"/> : 
+       <p className='text-center p-5'>
+        You have not selected any favourites yet.
+       </p>
+        }
+
+        {/* <footer>
+          <Footer/>
+        </footer> */}
+
+
     </>
   )
 }

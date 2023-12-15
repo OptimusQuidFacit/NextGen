@@ -122,7 +122,7 @@ const ProductList = ({products, filterObject, limit, title}) => {
 
     const [favId,setFavId]= useState();
     const toggleFav=(id)=>{
-       favs.includes(id) ? setFavs(favs.filter(fav=>fav!==id)) : setFavId(id);
+       favs?.includes(id) ? setFavs(favs.filter(fav=>fav!==id)) : setFavId(id);
         setTimeout(()=>{
             setFavId()
         }, 1000)

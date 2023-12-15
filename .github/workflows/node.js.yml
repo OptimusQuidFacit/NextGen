@@ -26,7 +26,16 @@ jobs:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
     - run: npm ci
-    - run: npm run build --if-present
+   
+    - run: npm run build
+      
     - run: |
-            touch .env
-            echo "${{secrets.PROD_ENV_FILE}}" > .env
+          touch .env
+          echo "ENV_FILE: >"
+          echo "  '${ENV_FILE}'" > api/.env
+      env: 
+          ENV_FILE: ${{ secrets.PROD_ENV_FILE }}
+      if: always()
+    - run: pm2 restart BackendAPI
+      if: always()
+    

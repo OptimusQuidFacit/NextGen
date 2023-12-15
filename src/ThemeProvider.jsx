@@ -135,7 +135,7 @@ import {userRequest } from './apiCalls';
        storedUser &&setUser(JSON.parse(storedUser));
        let myFavs= localStorage.getItem('favs')
     //    console.log(JSON.parse(myFavs));
-       setFavs(JSON.parse(myFavs));
+       myFavs&&setFavs(JSON.parse(myFavs));
       }, [])
 
     useEffect(()=>{

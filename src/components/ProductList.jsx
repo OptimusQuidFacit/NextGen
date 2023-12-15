@@ -160,7 +160,7 @@ const ProductList = ({products, filterObject, limit, title}) => {
                         <IconsContainer className=' ' style={{visibility: visibleIcon === product.id?"visible":"hidden"}}>
                         {/* <div style={{opacity}} className='bg-white rounded-3 p-3'> */}
                         <Link onClick={()=>toggleFav(product.id)} to={''}>             
-                        {favs.includes(product.id)?<Favorite  className='text-primary'/>:<FavoriteBorder className='text-primary'/>}
+                        {favs?.includes(product.id)?<Favorite  className='text-primary'/>:<FavoriteBorder className='text-primary'/>}
                         </Link>
                         <Link to={`/product/${product.id}`}>               
                         <Search className='text-primary'/>

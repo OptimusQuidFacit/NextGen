@@ -1,7 +1,8 @@
 import axios from "axios";
 import { userThemeContext } from "./ThemeProvider";
 
-export const baseUrl= "http://51.20.63.132"
+export const baseUrl= "http://51.20.63.132";
+// export const baseUrl= "http://localhost:5000"
 export const publicRequest=axios.create(
 {baseURL: baseUrl,
 headers:{

@@ -38,6 +38,7 @@ const FormContainer= styled.div`
 const Signin = () => {
     const {user, setUser}= useContext(userThemeContext);
     const [loginUser, setLoginUser]= useState()
+    const [errorMsg, setErrorMsg] = useState(null);
     const navigate= useNavigate()
     const handleChange=(e)=>{
         setLoginUser({...loginUser, [e.target.name]:e.target.value})
@@ -45,16 +46,24 @@ const Signin = () => {
 
 const handleClick=(e)=>{
     publicRequest.post('api/users/login', loginUser).then(res=>{
+        setErrorMsg(null)
      setUser(res.data)
      let stringedUser=JSON.stringify(res.data);
-     localStorage.setItem('user', stringedUser)
+     localStorage.setItem('user', stringedUser);
         userRequest(res.data.token).post(`api/cart/${res.data._id}`, {UserId:res.data._id,
             Products: [], Total: 0
-        }, ).then(res=>console.log(res.data));
+        }, ).then(res=>console.log(res.data))
+     
         navigate('/');
         
     })
+    .catch(err=>{
+         if(err.response){
+            setErrorMsg(err.response.data);
+         }
+    });
 }
+
 
 
   return (
@@ -76,6 +85,7 @@ const handleClick=(e)=>{
                 </a> 
                 </Link>
             </p>
+            {errorMsg&&<p className='text-danger fw-bold'>{errorMsg}</p>}
         </div>
         </FormContainer>
     </Wrapper>

@@ -61,24 +61,30 @@ const verifyEmail = async(req, res)=>{
 }
 
 const signIn = async(req,res)=>{
-    const user= await userModel.findOne({Email: req.body.Email})
-    //res.json(user);
-    if(user){
-        const decrypted= CryptoJs.AES.decrypt(user.Password, process.env.PASS_SEC).toString(CryptoJs.enc.Utf8);
+    try{
 
-        if(decrypted==req.body.Password){
-           let accessToken= jwt.sign({id:user._id, isAdmin:user.isAdmin}, process.env.JWT_SEC, {expiresIn:"3d"});
-            updated= await userModel.findOneAndUpdate(user,{$set:{
-                token: accessToken
-            }},{new:true});
-            res.json(updated)
+        const user= await userModel.findOne({Email: req.body.Email})
+        //res.json(user);
+        if(user){
+            const decrypted= CryptoJs.AES.decrypt(user.Password, process.env.PASS_SEC).toString(CryptoJs.enc.Utf8);
+    
+            if(decrypted==req.body.Password){
+               let accessToken= jwt.sign({id:user._id, isAdmin:user.isAdmin}, process.env.JWT_SEC, {expiresIn:"3d"});
+                updated= await userModel.findOneAndUpdate(user,{$set:{
+                    token: accessToken
+                }},{new:true});
+                res.json(updated)
+            }
+            else{
+                res.status(400).json("Wrong Password")
+            }
         }
         else{
-            res.status(500).json("Wrong Password")
+            res.status(400).json("You are not registered");
         }
     }
-    else{
-        res.status(500).json("You are not registered");
+    catch(err){
+        console.log(err);
     }
 }
 

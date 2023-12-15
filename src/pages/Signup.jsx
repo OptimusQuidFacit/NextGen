@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import NavBar from '../components/Navbar'
 import styled from 'styled-components'
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Button } from 'react-bootstrap';
 import { publicRequest } from '../apiCalls';
 
@@ -37,6 +37,7 @@ const Signup = () => {
     const [password, setPassword]= useState()
     const [confirmPassword, setConfirmPassword]= useState()
     const [unmatched, setUnmatched]= useState(false)
+    const navigate = useNavigate();
 
     const handleChange=(e)=>{
         setLoginUser({...loginUser, [e.target.name]:e.target.value})
@@ -51,6 +52,7 @@ const Signup = () => {
     }
     const handleClick=(e)=>{
        !unmatched&&publicRequest.post('api/users/register', loginUser).then(res=>console.log(res.data)) 
+        navigate('/signin');
     }
     useEffect(()=>{
         password===confirmPassword?setUnmatched(false):setUnmatched(true)

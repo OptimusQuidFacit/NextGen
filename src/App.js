@@ -10,6 +10,9 @@ import Signin from "./pages/Signin";
 import Signup from "./pages/Signup";
 import AddProduct from "./pages/AddProduct";
 import Favourites from "./pages/Favourites";
+import Orders from "./pages/Orders";
+import VerifyPayment from "./pages/VerifyPayment";
+import CheckEmail from "./pages/CheckEmail";
 
 
 
@@ -29,6 +32,9 @@ function App() {
       <Route  path="/signup" element={<Signup/>}/>
       <Route  path="/addproduct" element={<AddProduct/>}/>
       <Route  path="/favourites" element={<Favourites/>}/>
+      <Route  path="/orders" element={<Orders/>}/>
+      <Route  path="/verifying" element={<VerifyPayment/>}/>
+      <Route  path="/emailnotification" element={<CheckEmail/>}/>
 
       </Routes>
     </Router>

@@ -18,7 +18,7 @@ const Wrapper= styled.div`
     background-repeat:no-repeat; */
 
 }
-    .start-shopping{
+    /* .start-shopping{
         animation: btn-animation 3s 3s;
         }
         @keyframes btn-animation {
@@ -29,7 +29,7 @@ const Wrapper= styled.div`
                 transform: rotateY(0);
             
         }
-            }
+            } */
 `
 const HeaderText= styled.div`
 @media (max-width: 1000px){
@@ -38,10 +38,11 @@ const HeaderText= styled.div`
     padding: 15px;
     margin:10px;
     border-radius: 10px; */
-}
-   flex:1;
-   margin-bottom:20px;
-   animation: heading 3s;
+    }
+    
+    flex:1;
+    margin-bottom:20px;
+    animation: heading 3s;
     position: relative;
     left: 0;
 

@@ -12,6 +12,7 @@ import { ThemeContext, userThemeContext } from '../ThemeProvider';
 const Home = () => {
   const {user}= useContext(userThemeContext);
   const {products, setProducts}= useContext(ThemeContext);
+  const limitedProducts= products.slice(0,6);
   return (
     <>
     <nav>
@@ -36,7 +37,7 @@ const Home = () => {
     </section>
 
     <section>
-     <ProductList products={products} limit={6} />
+     <ProductList title='Our Products' products={limitedProducts} />
     </section>
 
     <section>

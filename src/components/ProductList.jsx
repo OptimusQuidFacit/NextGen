@@ -43,8 +43,9 @@ const ItemInfo = styled.div`
     height:100px;
 `
 
-const ProductHeading= styled.h1`
+const ProductHeading= styled.h2`
     text-align: center;
+    font-weight:bold;
 `
 const IconsContainer= styled.div`
     background-color: #fff;
@@ -65,15 +66,16 @@ const IconsContainer= styled.div`
     color: blue;
     font-weight: bold;
     font-size:1.4rem;
+    /* border: 1px solid black; */
     /* visibility: "hidden"; */
 `
 
 
-const ProductList = ({products, filterObject, limit, title}) => {
+const ProductList = ({products, filterObject, title}) => {
 
     
     const {favs, setFavs} = useContext(favThemeContext);
-    const [filteredProducts, setFilteredProducts]=useState(limit?products.slice(0,limit):products);
+    const [filteredProducts, setFilteredProducts]=useState(products);
     
     const handleFilter=(filter)=>{
        // setFilteredProducts(filterObject.Category?products.filter(product=>product.Category===filterObject.Category):products)
@@ -132,6 +134,7 @@ const ProductList = ({products, filterObject, limit, title}) => {
     // }
     // const [favs, setFavs]= useState([])
     useEffect(()=>{
+        // necessary to include the condition: favId &&, since favId is set to null 1s after the favId is set
         favId && setFavs([...favs, favId]);
          console.log(favs);
     }, [favId])
@@ -157,7 +160,7 @@ const ProductList = ({products, filterObject, limit, title}) => {
                             <p>{product.Name}</p>
                             <p>N{pricify(product.Price)}</p>
                         </ItemInfo>
-                        <IconsContainer className=' ' style={{visibility: visibleIcon === product.id?"visible":"hidden"}}>
+                        <IconsContainer className='shadow shadow-1 ' style={{visibility: visibleIcon === product.id?"visible":"hidden"}}>
                         {/* <div style={{opacity}} className='bg-white rounded-3 p-3'> */}
                         <Link onClick={()=>toggleFav(product.id)} to={''}>             
                         {favs?.includes(product.id)?<Favorite  className='text-primary'/>:<FavoriteBorder className='text-primary'/>}

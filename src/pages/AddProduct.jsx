@@ -70,21 +70,32 @@ const DetailLabel= styled.span`
 `
 
 const AddProduct = () => {
-    const [newProduct, setNewProduct]=useState({
-            Name: "",
-            img: "",
-            Price: "",
-            Category: "",
-            Brand: "",
-            Condition: "",
-            GPU: ""
-    });
     const [emptyfields, setEmptyfields]=useState([])
     const [formisokay, setFormisokay]=useState(false);
     const [formsubmitted, setFormsubmitted]= useState(false);
     const [progress, setProgress]= useState(0);
     const [isuploading, setIsuploading]= useState(false);
     const {user}= useContext(userThemeContext);
+    const [newProduct, setNewProduct]=useState({
+            UserPhone: user?.Phone,
+            Name: "",
+            img: "",
+            Price: "",
+            Category: "",
+            Brand: "",
+            Condition: "",
+            GPU: "None",
+            GPUName:"None",
+            VRAM:"1",
+            Screen:"11",
+            Processor: "Intel",
+            ProcessorDetails:"",
+            BaseSpeed:"",
+            Rom:"2",
+            Ram:"64"
+
+    });
+    
 
     
     useEffect(()=>{
@@ -323,7 +334,7 @@ const AddProduct = () => {
                 <select onChange={handleTextField} name='GPU' style={{width:"80px"}}>
                     
                    {
-                    ['NVIDIA', 'AMD', 'APPLE', 'NONE'].map(scr=>
+                    ['None','NVIDIA', 'AMD', 'Apple' ].map(scr=>
                         <option value={scr}>
                             {`${scr}`}
                         </option>)
@@ -403,7 +414,7 @@ const AddProduct = () => {
                 <DetailLabel>
                 Generation
                 </DetailLabel>
-                <select onChange={handleTextField} name='Gen' style={{width:"70px"}}>
+                <select onChange={handleTextField} name='Generation' style={{width:"70px"}}>
                     
                    {
                     ["4th", "5th", "6th", "7th"," 8th", "9th", "10th", "11th", "12th" ,"13th"].map(scr=>

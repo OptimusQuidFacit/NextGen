@@ -52,7 +52,7 @@ const Signup = () => {
     }
     const handleClick=(e)=>{
        !unmatched&&publicRequest.post('api/users/register', loginUser).then(res=>console.log(res.data)) 
-        // navigate('/signin');
+         navigate('/emailnotification');
     }
     useEffect(()=>{
         password===confirmPassword?setUnmatched(false):setUnmatched(true)

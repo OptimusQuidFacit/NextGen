@@ -11,14 +11,26 @@ import { ThemeContext } from '../ThemeProvider'
 const Wrapper= styled.div`  
 `
 const FilterContainer= styled.div`
+  width: 100% ;
   margin-top:10px;
   display: flex;
   justify-content: space-between;
+  display: grid;
+  justify-content: center;
+  align-items: center;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  @media(max-width:700px){
+    grid-template-columns: 1fr 1fr;
+  }
+  select{
+    width: 100px;
+  }
 
 `
 const FilterElement= styled.div`
   padding: 5px;
   font-weight: bold;
+  justify-self: center;
 `
 const Products = () => {
  
@@ -40,15 +52,16 @@ console.log(filter);
   return (
     <>
     <NavBar/>
-    <Wrapper className='container'>
+    <Wrapper className='container pt-3'>
+    <Filter1/>
+        <span className='p-3'>
+          Filter
+        </span>
     <FilterContainer>
       {/* <Filter1 className='p-5'/> */}
       <FilterElement>
-      <Filter1/>
-        <span className='p-3'>
-         Filter
-        </span>
-        <select className='mt-2 me-2' name="Category" onChange={ handleFilter}>
+     
+        <select className='' name="Category" onChange={ handleFilter}>
            <option disabled selected>Category</option>
            <option value="All">All</option>
            <option value="Traditional Laptops">Traditional laptops</option>
@@ -56,7 +69,9 @@ console.log(filter);
            <option value="Chomebooks">ChromeBooks</option>
 
         </select>
-        <select name="Brand" className='me-2 mt-2' onChange={handleFilter}>
+        </FilterElement>
+        <FilterElement>
+        <select name="Brand" className='' onChange={handleFilter}>
            <option disabled selected>Brand</option>
            <option value="All">All</option>
            <option value="Asus">Asus</option>
@@ -65,7 +80,9 @@ console.log(filter);
            <option value="Hp">Hp</option>
 
         </select>
-        <select name="Condition" className='me-2 mt-2' onChange={handleFilter}>
+        </FilterElement>
+        <FilterElement>
+        <select name="Condition" className='' onChange={handleFilter}>
            <option disabled selected>Condition</option>
            <option value="All">All</option>
            <option value="Brand New">Brand New</option>
@@ -75,11 +92,11 @@ console.log(filter);
       </FilterElement>
       <FilterElement>
         
-        <span className='p-3'>
+        {/* <span className='p-3'>
           Price:
-        </span>
-        <select className='mt-2' name="Price" onChange={handleFilter}>
-           <option> </option>
+        </span> */}
+        <select  className='mt-2' name="Price" onChange={handleFilter}>
+            <option disabled selected>Price</option>
            <option value="All">All</option>
            <option value="1">Less than N100,000</option>
            <option value="2">N100, 000 - N200,000</option>

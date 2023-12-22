@@ -4,11 +4,12 @@ import { Button, Col, Modal, Row } from 'react-bootstrap'
 import styled from 'styled-components'
 import Footer from '../components/Footer'
 import { Add, ArrowBack, Delete, Remove } from '@mui/icons-material'
-import { CartThemeContext, userThemeContext } from '../ThemeProvider'
+import { CartThemeContext, ordersThemeContext, userThemeContext } from '../ThemeProvider'
 // import SingleProduct from '../components/SingleProduct'
 // import { userRequest } from '../apiCalls'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { pricify } from '../utilities'
+import { userRequest } from '../apiCalls'
 
 
 const Wrapper= styled.div`
@@ -18,7 +19,7 @@ const CartContainer= styled.div`
     
 `
 const Summary = styled.div`
-min-width:350px;
+min-width:330px;
 @media (max-width: 1000px) {
     margin-top:30px;
 }
@@ -55,10 +56,22 @@ margin: 10px 0;
 const InfoText= styled.p`
 /* line-height: 0.9rem; */
 `
+//For the modal
+const Qty=styled.input`
+width: 40px;
+margin: 0 2px;
+text-align: center;
+`
+const InfoRow = styled.div`
+font-weight: bold;
+
+`;
 
 const Cart = () => {
     const {cart, setCart} = useContext(CartThemeContext);
     const {user} = useContext(userThemeContext);
+    const {orders, setOrders} = useContext(ordersThemeContext);
+    const navigate= useNavigate()
     // useEffect(()=>{
     //    user&& userRequest(user.token).post(`/cart`, {UserId:user._id,
     //         Products: cart, Total: 0
@@ -84,16 +97,7 @@ const Cart = () => {
         setShow(true);
     }
 
-    //For the modal
-    const Qty=styled.input`
-    width: 40px;
-    margin: 0 2px;
-    text-align: center;
-    `
-    const InfoRow = styled.div`
-    font-weight: bold;
     
-    `;
     const [quantity, setQuantity] = useState(1);
     const handleQty=(i)=>{
         if(i){
@@ -110,6 +114,28 @@ const Cart = () => {
     useEffect(()=>{
         setQuantity(editProduct && editProduct.qty)
     }, [editProduct])
+    const handleCheckOut=()=>{
+        //Add order
+        const orders=cart.map(item=>({...item, status: "pending"}));
+        userRequest(user.token).post(`/api/orders/${user._id}`, 
+        {UserId: user._id, Products:orders, 
+            Total:cart.reduce((sum, item)=>sum+item.Price*item.qty, 0)})
+            .then(res=>{res.data.Products&&setOrders(res.data.Products)
+            //console.log(res.data.Products)
+            //Payment request
+            userRequest(user.token).post(`api/orders/checkout/${user._id}`)
+            .then(res=>{  
+                window.open(res.data.authorization_url);
+                navigate('/verifying');
+            
+        })
+        }
+        )
+            .catch(err=>console.log(err.response))
+
+        
+
+    }
   return (
     <>
         <nav>
@@ -168,9 +194,9 @@ const Cart = () => {
                     <Row xs={1} lg={2}>
                         {
                             
-                            cart.map(item=>
+                            cart.length ? cart .map(item=>
 
-                        <Col>
+                        <Col key={item.id}>
                             <ItemContainer className='text-center'>
                                 <ImgContainer className='text-center'>
                                     <Image src={item.img}/>
@@ -190,6 +216,7 @@ const Cart = () => {
                             </ItemContainer>
                         </Col>
                             )
+                            : <p className='text-center p-5 my-5'> Your Cart is empty </p>
                         }   
                         
                     </Row>
@@ -225,7 +252,7 @@ const Cart = () => {
                                 <p className='ps-5'>N{pricify(cart.reduce((sum, item)=>sum + item.Price*item.qty, 0))}</p>
                                 </div>
 
-                                <Button className='w-100'>Checkout </Button>
+                                <Button onClick={handleCheckOut} className='w-100'>Checkout </Button>
 
                     </Summary>
                 </Col>

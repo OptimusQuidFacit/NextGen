@@ -98,7 +98,8 @@ const getUser = async(req, res)=>{
 const updateUser= async (req, res)=>{
     const id = req.params.id
     const update= req.body
-    let updatedUser= await userModel.findOneAndUpdate({_id:id}, {$set:{update}});
+    let updatedUser= await userModel.findOneAndUpdate({_id:id}, {$set:
+        {...update}});
     res.json(updatedUser);
 }
 

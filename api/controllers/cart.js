@@ -4,15 +4,14 @@ const createCart= async (req, res)=>{
 const request = req.body;
     const cart= new cartModel({
         ...request
-    })
+    });
     try {
         let cartExists= await cartModel.findOne({UserId:req.params.id})
-        if(cartExists) res.json('Cart Already exists');
-        
+        if(cartExists) res.json('Cart Already exists'); 
         else{
         const newCart= await cart.save();
-        res.json(newCart);}
-         
+        res.json(newCart);
+    }    
     }
     catch(err){
         console.log(err);

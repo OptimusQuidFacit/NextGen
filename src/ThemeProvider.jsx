@@ -1,11 +1,13 @@
 import React, { useState } from 'react'
 import { useEffect } from "react";
 import {userRequest } from './apiCalls';
+import { initialize } from 'paystack-api/resources/transaction';
 
  export const ThemeContext= React.createContext();
  export const CartThemeContext= React.createContext();
  export const userThemeContext= React.createContext();
  export const favThemeContext= React.createContext();
+ export const ordersThemeContext= React.createContext();
 
 
 
@@ -106,7 +108,7 @@ import {userRequest } from './apiCalls';
         },
     ])
     const [cart, setCart]= useState([]);
-
+    const [orders, setOrders]= useState([]);
     const [user, setUser]= useState();
     const [favs, setFavs] = useState([]);
 
@@ -140,36 +142,60 @@ import {userRequest } from './apiCalls';
 
     useEffect(()=>{
         let stringedFavs= JSON.stringify(favs)
-        //favs.length consition ensures the local storage is not set with empty array initialized when the component mounts
+        //favs.length condition ensures the local storage is not set with empty array initialized when the component mounts
         favs?.length && localStorage.setItem("favs", stringedFavs);
     },[favs])
 
     
     useEffect(()=>{
 
+        // initialize the cart state everytime the user state changes
         user && userRequest(user.token).get(`api/cart/${user._id}`)
              .then(res=>res.data&&setCart(res.data.Products))
              .catch(err=>console.log(err));
         let stringedUser=JSON.stringify(user);
         stringedUser&& localStorage.setItem('user', stringedUser)
       }, [user])
+
+      useEffect(()=>{
+        // initialize the order state everytime the user state changes
+        user && userRequest(user.token).get(`api/orders/${user._id}`)
+             .then(res=>res.data&&setOrders(res.data.Products))
+             .catch(err=>console.log(err));
+        let stringedUser=JSON.stringify(user);
+        stringedUser&& localStorage.setItem('user', stringedUser)
+      }, [user]);
+
+      //Update database everytime the cart changes
     useEffect(()=>{
         user && userRequest(user.token).put(`api/cart/${user._id}`, {
              Products: cart, Total: cart.reduce((sum, item)=>sum + item.Price*item.qty, 0)
          }, )
              .then()
              .catch(err=>console.log(err));
-      }, [cart])
+      }, [cart]);
+
+      //Update database everytime the "orders" state changes
+    useEffect(()=>{
+        user && userRequest(user.token).put(`api/orders/${user._id}`, {
+             Products: orders, Total: cart.reduce((sum, item)=>sum + item.Price*item.qty, 0)
+         }, )
+             .then()
+             .catch(err=>console.log(err));
+      }, [orders]);
     
 
    return (
+   
      <ThemeContext.Provider value={{products, setProducts}}>
         <CartThemeContext.Provider value={{cart, setCart, updateCart}}>
-        <userThemeContext.Provider value={{user, setUser}}>
-            <favThemeContext.Provider value={{favs, setFavs}}>
-            {children}
-            </favThemeContext.Provider>
-        </userThemeContext.Provider>
+            <userThemeContext.Provider value={{user, setUser}}>
+                <favThemeContext.Provider value={{favs, setFavs}}>
+                    <ordersThemeContext.Provider value={{orders, setOrders}}>
+                        {children}
+                    </ordersThemeContext.Provider>
+                </favThemeContext.Provider>
+            </userThemeContext.Provider>
         </CartThemeContext.Provider>
      </ThemeContext.Provider>
    )

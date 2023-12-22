@@ -79,10 +79,10 @@ const handleClick=(e)=>{
             <FormInput onChange={handleChange} name='Password' type="password" placeholder = "Password"/>
             <Button onClick={handleClick} className='mt-3 btn-primary w-100'>Log In</Button>
         <div>
-            <p className='text-info'>Not registered? <Link style={{color:"inherit"}} to={'/signup'}>
-                <a>
+            <p className='text-info'>Not registered? <Link  to={'/signup'}>
+            
                     Sign Up
-                </a> 
+             
                 </Link>
             </p>
             {errorMsg&&<p className='text-danger fw-bold'>{errorMsg}</p>}

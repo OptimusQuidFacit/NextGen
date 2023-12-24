@@ -17,8 +17,9 @@ const Product = () => {
 
     <NavBar/>
     </nav>
-
-    <SingleProduct id={id}/> 
+    <section style={{minHeight:"90vh"}}>
+      <SingleProduct id={id}/> 
+    </section>
     <footer>
     <Footer/>
     </footer>

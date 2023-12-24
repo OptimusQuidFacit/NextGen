@@ -47,8 +47,8 @@ const Spinner= styled.div`
     height: 10px;
     position: Absolute;
     top: 0;
-    left: 50%;
-    transform: translateX(-50%);
+    left:calc(50% - 50px);
+    /* transform: translateX(100px); */
     animation: spinner 2s ease-in infinite forwards;
    
 `

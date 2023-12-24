@@ -115,14 +115,18 @@ const Cart = () => {
         setQuantity(editProduct && editProduct.qty)
     }, [editProduct])
     const handleCheckOut=()=>{
-        //Add order
+        
         const orders=cart.map(item=>({...item, status: "pending"}));
+        
+        //Add order to the db for the first time
+
         userRequest(user.token).post(`/api/orders/${user._id}`, 
-        {UserId: user._id, Products:orders, 
+        {UserId: user._id, Products:orders,
             Total:cart.reduce((sum, item)=>sum+item.Price*item.qty, 0)})
             .then(res=>{res.data.Products&&setOrders(res.data.Products)
             //console.log(res.data.Products)
             //Payment request
+            setOrders(cart.map(item=>({...item, status:"pending"})))
             userRequest(user.token).post(`api/orders/checkout/${user._id}`)
             .then(res=>{  
                 window.open(res.data.authorization_url);
@@ -142,7 +146,7 @@ const Cart = () => {
 
         <NavBar/>
         </nav>
-            <Wrapper className='m-3 container mx-auto'>
+            <Wrapper style={{minHeight:"90vh"}} className='m-3 container mx-auto'>
                 <Modal show={show} onHide={handleClose} className='w-100'>
                     <Modal.Header closeButton>
                         <Modal.Title>

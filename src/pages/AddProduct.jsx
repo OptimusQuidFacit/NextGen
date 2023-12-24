@@ -6,6 +6,7 @@ import { getStorage, ref, uploadBytesResumable, getDownloadURL } from "firebase/
 import app from '../firebase'; 
 import { userRequest } from '../apiCalls';
 import { userThemeContext } from '../ThemeProvider';
+import Footer from '../components/Footer';
 
 
 const Wrapper= styled.div`
@@ -429,6 +430,7 @@ const AddProduct = () => {
             <a onClick={handleSubmit} className='text-decoration-none btn btn-primary mx-1 fw-bold w-100'>Submit Item for Approval <Send/></a>
         </Form>
     </Wrapper>
+    <Footer/>
     </>
   )
 }

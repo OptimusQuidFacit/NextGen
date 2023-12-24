@@ -3,6 +3,7 @@ import NavBar from '../components/Navbar'
 import { ordersThemeContext } from '../ThemeProvider'
 import styled from 'styled-components'
 import { pricify } from '../utilities'
+import Footer from '../components/Footer'
 
 
 const Wrapper = styled.div`
@@ -38,7 +39,7 @@ const Orders = () => {
   return (
     <>
     <NavBar/>
-    <Wrapper className="">
+    <Wrapper style={{minHeight:"90vh"}} className="">
 
     <OrdersContainer>
         <HeadingContainer className="bg-secondary" >
@@ -71,6 +72,7 @@ const Orders = () => {
         }
     </OrdersContainer>
     </Wrapper>
+    <Footer/>
     </>
   )
 }

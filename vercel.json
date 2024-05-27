@@ -20,13 +20,13 @@
         "dest": "/api/index.js"
       },
       {
-        "src": "(.*)",
+        "src": "/(.*)",
         "dest": "build/index.html"
       }
     ],
     "rewrites": [
       {
-        "source": "(.*)",
+        "source": "/(.*)",
         "dest": "build/index.html"
       }
     ]

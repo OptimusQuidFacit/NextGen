@@ -21,7 +21,13 @@
       },
       {
         "src": "(.*)",
-        "dest": "/public/index.html"
+        "dest": "build/index.html"
+      }
+    ],
+    "rewrites": [
+      {
+        "source": "(.*)",
+        "dest": "build/index.html"
       }
     ]
   }

@@ -54,7 +54,7 @@ const SingleProduct = ({id}) => {
     const productItem=products.filter(product=>product.id===id)[0];
     
     
-     const [product, setProduct]= useState(
+     const [product]= useState(
         productItem
         );
     useEffect(()=>{

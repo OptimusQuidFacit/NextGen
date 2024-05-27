@@ -7,7 +7,7 @@ import ProductList from '../components/ProductList';
 import Whyus from '../components/Whyus';
 // import Welcome from '../components/Welcome';
 import Newsletter from '../components/Newsletter';
-import { ThemeContext, userThemeContext } from '../ThemeProvider';
+import { ThemeContext} from '../ThemeProvider';
 
 const Home = () => {
   // const {user}= useContext(userThemeContext);

@@ -116,7 +116,7 @@ const ProductList = ({products, filterObject, title}) => {
     useEffect(()=>{
      // filterObject &&  setFilteredProducts(filterObject.Category?products.filter(product=>product.Category===filterObject.Category):products)
       filterObject && handleFilter(filterObject)
-    }, [filterObject, handleFilter])
+    }, [filterObject])
 
     const [visibleIcon, setVisibleIcon]= useState();
     const toggleVisibility=(id)=>{

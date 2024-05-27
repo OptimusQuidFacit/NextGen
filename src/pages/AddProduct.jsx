@@ -174,7 +174,6 @@ const AddProduct = () => {
                 'GeForce GTX 1660',
                 // Add more Nvidia GPUs as needed
               ];
-              break;
             case "AMD":
             return [
                 'Radeon RX 6900 XT',
@@ -190,7 +189,6 @@ const AddProduct = () => {
                         'Radeon RX 570',
                 // Add more Nvidia GPUs as needed
               ];
-              break;
               default:
                 return [];
         }
@@ -235,7 +233,7 @@ const AddProduct = () => {
                 <Label className='fw-bold'>
                    Category
                 </Label>
-                <select name='Category' className={formsubmitted && newProduct.Category===""?'error':'' + ' rounded-1 bg-secondary text-white'} onChange={handleTextField}>
+                <select name='Category' className={`formsubmitted ${newProduct.Category===""?'error':''} rounded-1 bg-secondary text-white`} onChange={handleTextField}>
                     
                     <option disabled selected>
                         
@@ -255,7 +253,7 @@ const AddProduct = () => {
                 <Label className='fw-bold'>
                    Condition
                 </Label>
-                <select name='Condition' className={formsubmitted && newProduct.Condition===""?'error':''+' rounded-1 bg-secondary text-white'} onChange={handleTextField}>
+                <select name='Condition' className={`formsubmitted ${newProduct.Condition===""?'error':''} rounded-1 bg-secondary text-white`} onChange={handleTextField}>
                     
                     <option disabled selected>
                         Condition
@@ -398,7 +396,7 @@ const AddProduct = () => {
                 <DetailLabel>
                 Processor Details
                 </DetailLabel>
-                <Input className={formsubmitted&&newProduct.ProcessorDetails===""?'error':''+"ps-1 ms-1"} name='ProcessorDetails' type='text' placeholder='e.g core i7-10610U' onChange={handleTextField}/>  
+                <Input className={`formsubmitted ${newProduct.ProcessorDetails===""?'error':''} ps-1 ms-1`} name='ProcessorDetails' type='text' placeholder='e.g core i7-10610U' onChange={handleTextField}/>  
 
                 </DetailsContainer>
                 <DetailsContainer>
@@ -406,7 +404,7 @@ const AddProduct = () => {
                 <DetailLabel>
                 Base Speed
                 </DetailLabel>
-                <Input style={{width:"100px"}} className={formsubmitted&&newProduct.BaseSpeed===""?'error':''+"ps-1 ms-1"} name='BaseSpeed' type='text' placeholder='e.g 2.2GHz' onChange={handleTextField}/>  
+                <Input style={{width:"100px"}} className={`formsubmitted ${newProduct.BaseSpeed===""?'error':''} ps-1 ms-1`} name='BaseSpeed' type='text' placeholder='e.g 2.2GHz' onChange={handleTextField}/>  
 
                 </DetailsContainer>
 
@@ -428,7 +426,7 @@ const AddProduct = () => {
                 </DetailsContainer>
             </DetailSection>
            </InputContainer>
-            <a onClick={handleSubmit} className='text-decoration-none btn btn-primary mx-1 fw-bold w-100'>Submit Item for Approval <Send/></a>
+            <span onClick={handleSubmit} className='text-decoration-none btn btn-primary mx-1 fw-bold w-100'>Submit Item for Approval <Send/></span>
         </Form>
     </Wrapper>
     <Footer/>

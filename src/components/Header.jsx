@@ -99,9 +99,9 @@ const Header = () => {
         Welcome to our one-stop destination for all your laptop needs, whether you're in search of a trusty companion for work, study, or leisure. At NextGen, we bring you a world of possibilities where you can buy, sell, and explore the finest selection of used and brand-new laptops.
         </p>
             <Link to={'/products'}> 
-        <a href='#' className='text-decoration-none start-shopping btn btn-primary'>
+        <span  className='text-decoration-none start-shopping btn btn-primary'>
             Start Shopping
-        </a>
+        </span>
             </Link>
         </HeaderText>
         <HeaderImg>

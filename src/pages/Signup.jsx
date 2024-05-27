@@ -57,7 +57,7 @@ const Signup = () => {
     useEffect(()=>{
         password===confirmPassword?setUnmatched(false):setUnmatched(true)
         !unmatched&&setLoginUser({...loginUser, Password:password})
-    }, [confirmPassword])
+    }, [confirmPassword, loginUser, password, unmatched])
   return (
     <>
     <NavBar/>
@@ -77,7 +77,7 @@ const Signup = () => {
             <Button onClick={handleClick} className='mt-3 btn-primary'>Submit</Button>
         <div>
             <p className='text-info'>Already registered? <Link style={{color:"inherit"}} to={'/signin'}>
-                <a>
+                <a href='#'>
                     Sign In
                 </a> 
                 </Link>

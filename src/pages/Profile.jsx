@@ -109,6 +109,7 @@ const Profile = () => {
       case 'running':
         console.log('Upload is running');
         break;
+        default: console.log('file upload')
     }
   }, 
   (error) => {

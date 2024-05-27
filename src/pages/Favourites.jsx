@@ -20,9 +20,9 @@ const Favourites = () => {
        </p>
         }
 
-        {/* <footer>
+        <footer>
           <Footer/>
-        </footer> */}
+        </footer>
 
 
     </>

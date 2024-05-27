@@ -51,7 +51,7 @@ const Qty=styled.input`
 const SingleProduct = ({id}) => {
     const {products}= useContext(ThemeContext);
     const {cart, updateCart}= useContext(CartThemeContext);
-    const productItem=products.filter(product=>product.id==id)[0];
+    const productItem=products.filter(product=>product.id===id)[0];
     
     
      const [product, setProduct]= useState(

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, {useState } from 'react'
 import NavBar from '../components/Navbar'
 import styled from 'styled-components'
 import { Link, useNavigate } from 'react-router-dom';
@@ -36,7 +36,7 @@ const FormContainer= styled.div`
 
 
 const Signin = () => {
-    const {user, setUser}= useContext(userThemeContext);
+    const {setUser}= useContext(userThemeContext);
     const {setNotification}= useContext(notificationsThemeContext)
     const [loginUser, setLoginUser]= useState()
     const [errorMsg, setErrorMsg] = useState(null);

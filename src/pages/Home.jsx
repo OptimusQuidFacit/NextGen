@@ -5,13 +5,13 @@ import Header from '../components/Header';
 import NavBar from '../components/Navbar';
 import ProductList from '../components/ProductList';
 import Whyus from '../components/Whyus';
-import Welcome from '../components/Welcome';
+// import Welcome from '../components/Welcome';
 import Newsletter from '../components/Newsletter';
 import { ThemeContext, userThemeContext } from '../ThemeProvider';
 
 const Home = () => {
-  const {user}= useContext(userThemeContext);
-  const {products, setProducts}= useContext(ThemeContext);
+  // const {user}= useContext(userThemeContext);
+  const {products}= useContext(ThemeContext);
   const limitedProducts= products.slice(0,6);
   return (
     <>

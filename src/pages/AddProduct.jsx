@@ -110,7 +110,7 @@ const AddProduct = () => {
     const handleSubmit= ()=>{
        // Object.entries(newProduct).forEach(([key, value])=>value==null&&[...emptyfields, [key]:value])
        setFormsubmitted(true);
-       Object.entries(newProduct).forEach(([key, value])=>value==''?!emptyfields.includes(key)&&setEmptyfields(prev=>[...prev, key]):setEmptyfields(prev=>prev.filter(prop=>prop!==key)))
+       Object.entries(newProduct).forEach(([key, value])=>value===''?!emptyfields.includes(key)&&setEmptyfields(prev=>[...prev, key]):setEmptyfields(prev=>prev.filter(prop=>prop!==key)))
        formisokay?userRequest(user.token).post(`api/products/newproduct/${user?._id}`, newProduct).then(res=>console.log('successfully submitted', res.data)):console.log('You must complete all fields', emptyfields.map(field=>`${field} field cannot be empty`))
     }
     const handleUpload=(e)=>{
@@ -134,6 +134,7 @@ const AddProduct = () => {
       case 'running':
         console.log('Upload is running');
         break;
+        default: console.log('file upload')
     }
   }, 
   (error) => {

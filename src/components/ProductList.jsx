@@ -10,7 +10,7 @@ import { pricify } from '../utilities';
 
 
 const Wrapper = styled.div`
-
+    min-height: 90vh;
 `
 const ItemContainer= styled.div`
     padding: 10px;
@@ -76,6 +76,7 @@ const ProductList = ({products, filterObject, title}) => {
     
     const {favs, setFavs} = useContext(favThemeContext);
     const [filteredProducts, setFilteredProducts]=useState(products);
+
     
     const handleFilter=(filter)=>{
        // setFilteredProducts(filterObject.Category?products.filter(product=>product.Category===filterObject.Category):products)
@@ -168,7 +169,9 @@ const ProductList = ({products, filterObject, title}) => {
                         <Link to={`/product/${product.id}`}>               
                         <Search className='text-primary'/>
                         </Link>
-                        <Link onClick={()=>updateCart(product.id)} to={``}>
+                        <Link onClick={()=>{
+                            
+                            updateCart(product.id)}} to={``}>
                             <Add className='text-primary'/>
                         </Link>
                         {/* </div> */}

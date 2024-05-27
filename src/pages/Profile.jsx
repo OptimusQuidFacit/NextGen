@@ -170,9 +170,9 @@ const Profile = () => {
                       <Link className='flex-grow-1' style={{textDecoration:'none'}} to={'/favourites'}>
                       <p style={{cursor:'pointer'}} className='p-2 bg-secondary fw-bold text-white mx-3'>Your favourites</p>
                       </Link>
-                      <Link className='flex-grow-1' style={{textDecoration:'none'}} to={'/mystore'}>
+                      <Link className='flex-grow-1' style={{textDecoration:'none'}} to={'/orders'}>
 
-                      <p style={{cursor:'pointer'}} className=' fw-bold p-2 bg-light  mx-3'>Your Store</p>
+                      <p style={{cursor:'pointer'}} className=' fw-bold p-2 bg-light  mx-3'>Your Orders</p>
                       </Link>
                     </div>
                 </Sell>

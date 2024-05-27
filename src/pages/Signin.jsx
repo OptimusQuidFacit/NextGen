@@ -5,7 +5,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { Button } from 'react-bootstrap';
 import { publicRequest, userRequest} from '../apiCalls';
 import { useContext } from 'react';
-import { userThemeContext } from '../ThemeProvider';
+import { notificationsThemeContext, userThemeContext } from '../ThemeProvider';
 
 
 const Wrapper= styled.div`
@@ -37,6 +37,7 @@ const FormContainer= styled.div`
 
 const Signin = () => {
     const {user, setUser}= useContext(userThemeContext);
+    const {setNotification}= useContext(notificationsThemeContext)
     const [loginUser, setLoginUser]= useState()
     const [errorMsg, setErrorMsg] = useState(null);
     const navigate= useNavigate()
@@ -48,6 +49,7 @@ const handleClick=(e)=>{
     publicRequest.post('api/users/login', loginUser).then(res=>{
         setErrorMsg(null)
      setUser(res.data)
+     setNotification('Successfully loggged in')
      let stringedUser=JSON.stringify(res.data);
      localStorage.setItem('user', stringedUser);
         userRequest(res.data.token).post(`api/cart/${res.data._id}`, {UserId:res.data._id,
@@ -59,6 +61,7 @@ const handleClick=(e)=>{
     })
     .catch(err=>{
          if(err.response){
+            setNotification('Wrong Credentials');
             setErrorMsg(err.response.data);
          }
     });

@@ -10,7 +10,10 @@ const request = req.body;
     });
     try {
         let ordersExists= await ordersModel.findOne({UserId:req.params.id})
-        if(ordersExists) res.json('orders Already exists');
+        if(ordersExists) 
+        {
+            ordersModel.findOneAndUpdate({UserId:req.params.id}, {$set:{Products:[...ordersExists.Products,...orders.Products]}})
+            res.json(ordersExists);}
         
         else{
         const newOrders = await orders.save();

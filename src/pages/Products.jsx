@@ -8,17 +8,21 @@ import { ThemeContext } from '../ThemeProvider'
 
 
 
-const Wrapper= styled.div`  
+const Wrapper= styled.div`
+
 `
 const FilterContainer= styled.div`
   width: 100% ;
+  /* overflow: hidden; */
   margin-top:10px;
   display: flex;
   justify-content: space-between;
   display: grid;
+  border-radius: 10px;
   justify-content: center;
   align-items: center;
   grid-template-columns: 1fr 1fr 1fr 1fr;
+
   @media(max-width:700px){
     grid-template-columns: 1fr 1fr;
   }
@@ -37,7 +41,8 @@ const Products = () => {
   const [filter, setFilter] = useState({
   
   })
-  const {products, setProducts}= useContext(ThemeContext);
+  const [showFilter, setShowFilter]= useState(false);
+  const {products}= useContext(ThemeContext);
   const handleFilter=(e)=>{
    if (e.target.value==="All"){
       const filteredKeys= Object.keys(filter).filter((key)=>key!==e.target.name)
@@ -53,15 +58,17 @@ console.log(filter);
     <>
     <NavBar/>
     <Wrapper className='container pt-3'>
-    <Filter1/>
+    <Filter1 style={{cursor:"pointer"}} onClick={()=>setShowFilter(!showFilter)}/>
         <span className='p-3'>
-          Filter
+          Toggle Filter
         </span>
-    <FilterContainer>
+    {
+     <FilterContainer style={{transition: 'max-height 1s ease-in', maxHeight: showFilter? "120px": "0", overflow:"hidden"}}
+    className='shadow shadow-1' >
       {/* <Filter1 className='p-5'/> */}
       <FilterElement>
      
-        <select className='' name="Category" onChange={ handleFilter}>
+        <select style={{width:"120px",borderRadius:"20px", padding:"5px", borderWidth:"3px", borderColor:"#233D12"}}className='' name="Category" onChange={ handleFilter}>
            <option disabled selected>Category</option>
            <option value="All">All</option>
            <option value="Traditional Laptops">Traditional laptops</option>
@@ -71,7 +78,7 @@ console.log(filter);
         </select>
         </FilterElement>
         <FilterElement>
-        <select name="Brand" className='' onChange={handleFilter}>
+        <select style={{width:"120px",borderRadius:"20px", padding:"5px", borderWidth:"3px", borderColor:"#233D12"}}name="Brand" className='' onChange={handleFilter}>
            <option disabled selected>Brand</option>
            <option value="All">All</option>
            <option value="Asus">Asus</option>
@@ -82,7 +89,7 @@ console.log(filter);
         </select>
         </FilterElement>
         <FilterElement>
-        <select name="Condition" className='' onChange={handleFilter}>
+        <select style={{width:"120px",borderRadius:"20px", padding:"5px", borderWidth:"3px", borderColor:"#233D12"}}name="Condition" className='' onChange={handleFilter}>
            <option disabled selected>Condition</option>
            <option value="All">All</option>
            <option value="Brand New">Brand New</option>
@@ -95,7 +102,7 @@ console.log(filter);
         {/* <span className='p-3'>
           Price:
         </span> */}
-        <select  className='mt-2' name="Price" onChange={handleFilter}>
+        <select style={{width:"120px",borderRadius:"20px", padding:"5px", borderWidth:"3px", borderColor:"#233D12"}}  name="Price" onChange={handleFilter}>
             <option disabled selected>Price</option>
            <option value="All">All</option>
            <option value="1">Less than N100,000</option>
@@ -105,8 +112,8 @@ console.log(filter);
 
         </select>
       </FilterElement>
-    </FilterContainer>
-    {/* <p>{filter.Category} {filtered.map(filter=><p key={filter.id}>{filter.Name}</p> )}</p> */}
+    </FilterContainer>}    
+{/* <p>{filter.Category} {filtered.map(filter=><p key={filter.id}>{filter.Name}</p> )}</p> */}
         <ProductList products={products} filterObject={filter} title="Our Products" />
     </Wrapper>
     <footer>

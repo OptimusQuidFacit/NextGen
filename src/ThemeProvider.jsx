@@ -1,13 +1,15 @@
 import React, { useState } from 'react'
 import { useEffect } from "react";
 import {userRequest } from './apiCalls';
-import { initialize } from 'paystack-api/resources/transaction';
-
+import { Toast } from 'react-bootstrap';
  export const ThemeContext= React.createContext();
  export const CartThemeContext= React.createContext();
  export const userThemeContext= React.createContext();
  export const favThemeContext= React.createContext();
  export const ordersThemeContext= React.createContext();
+ export const notificationsThemeContext= React.createContext();
+ export const loadingThemeContext= React.createContext();
+
 
 
 
@@ -111,6 +113,8 @@ import { initialize } from 'paystack-api/resources/transaction';
     const [orders, setOrders]= useState([]);
     const [user, setUser]= useState();
     const [favs, setFavs] = useState([]);
+    const [notification, setNotification] = useState(null);
+    const [isLoading, setIsLoading] = useState(false);
 
 
     // const updateProducts=(newValue)=>{
@@ -121,8 +125,13 @@ import { initialize } from 'paystack-api/resources/transaction';
 
 
         let product= products.find(product=> product.id===id )
+        let itemInCart= cart.find(product=> product.id===id )
         let cartItem={...product, qty:quantity?quantity:1}
+        itemInCart ? setNotification('Item already exists in Cart'): setNotification('New Item Added to Cart')
+        itemInCart && quantity && setNotification('Item Quantity Updated successfully')
+        // newProduct && quantity && setNotification('Item already in Cart')
         setCart([...cart.filter(item=>item.id!==id), cartItem]);
+        
         
     }
 
@@ -132,6 +141,10 @@ import { initialize } from 'paystack-api/resources/transaction';
     //      }, )
     //          .then(res=>console.log(res.data));
     //   }, [user])
+    useEffect(()=>{
+        setTimeout(()=>{notification&&setNotification(null)}, 3000)
+    }, [notification])
+
     useEffect(()=>{
         let storedUser=localStorage.getItem('user')
        storedUser &&setUser(JSON.parse(storedUser));
@@ -150,8 +163,11 @@ import { initialize } from 'paystack-api/resources/transaction';
     useEffect(()=>{
 
         // initialize the cart state everytime the user state changes
+        setIsLoading(true);
         user && userRequest(user.token).get(`api/cart/${user._id}`)
-             .then(res=>res.data&&setCart(res.data.Products))
+             .then(res=>{
+                setIsLoading(false)
+                res.data&&setCart(res.data.Products)})
              .catch(err=>console.log(err));
         let stringedUser=JSON.stringify(user);
         stringedUser&& localStorage.setItem('user', stringedUser)
@@ -159,8 +175,11 @@ import { initialize } from 'paystack-api/resources/transaction';
 
       useEffect(()=>{
         // initialize the order state everytime the user state changes
+        setIsLoading(true);
         user && userRequest(user.token).get(`api/orders/${user._id}`)
-             .then(res=>res.data&&setOrders(res.data.Products))
+             .then(res=>{
+                setIsLoading(false)
+                res.data&&setOrders(res.data.Products)})
              .catch(err=>console.log(err));
         let stringedUser=JSON.stringify(user);
         stringedUser&& localStorage.setItem('user', stringedUser)
@@ -173,7 +192,7 @@ import { initialize } from 'paystack-api/resources/transaction';
          }, )
              .then()
              .catch(err=>console.log(err));
-      }, [cart]);
+      }, [cart, user]);
 
       //Update database everytime the "orders" state changes
     useEffect(()=>{
@@ -182,17 +201,30 @@ import { initialize } from 'paystack-api/resources/transaction';
          }, )
              .then()
              .catch(err=>console.log(err));
-      }, [orders]);
+      }, [orders, user, cart]);
     
 
    return (
+    
    
      <ThemeContext.Provider value={{products, setProducts}}>
         <CartThemeContext.Provider value={{cart, setCart, updateCart}}>
             <userThemeContext.Provider value={{user, setUser}}>
                 <favThemeContext.Provider value={{favs, setFavs}}>
                     <ordersThemeContext.Provider value={{orders, setOrders}}>
-                        {children}
+                        <loadingThemeContext.Provider value={{isLoading, setIsLoading}}>
+                            <notificationsThemeContext.Provider value={{notification, setNotification}}>
+                                <Toast className='bg-primary text-white' style={{position:'absolute', top:'100px', left:'50%', transform:'translateX(-50%)'}} show={notification?true:false} onClose={()=>setNotification(null)}>
+                                    <Toast.Header>
+                                        <strong className='me-auto'>Notification</strong>
+                                    </Toast.Header>
+                                    <Toast.Body>
+                                        {notification}
+                                    </Toast.Body>
+                                </Toast>
+                                {children}
+                            </notificationsThemeContext.Provider>
+                        </loadingThemeContext.Provider>
                     </ordersThemeContext.Provider>
                 </favThemeContext.Provider>
             </userThemeContext.Provider>

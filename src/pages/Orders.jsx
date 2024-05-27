@@ -1,16 +1,19 @@
 import React, { useContext } from 'react'
 import NavBar from '../components/Navbar'
-import { ordersThemeContext } from '../ThemeProvider'
+import { loadingThemeContext, ordersThemeContext } from '../ThemeProvider'
 import styled from 'styled-components'
 import { pricify } from '../utilities'
 import Footer from '../components/Footer'
+import Loader from '../components/Loader'
+import { Link } from 'react-router-dom'
+
 
 
 const Wrapper = styled.div`
     padding: 10px;
 `
 const OrdersContainer= styled.div`
-    
+    min-height: 90vh;
 `
 const HeadingContainer = styled.div`
     display: flex;  
@@ -36,10 +39,11 @@ const RowItem= styled.div`
 
 const Orders = () => {
     const {orders}= useContext(ordersThemeContext);
+    const {isLoading} = useContext(loadingThemeContext)
   return (
     <>
     <NavBar/>
-    <Wrapper style={{minHeight:"90vh"}} className="">
+    {isLoading? <Loader/> : <Wrapper style={{minHeight:"90vh"}} className="">
 
     <OrdersContainer>
         <HeadingContainer className="bg-secondary" >
@@ -63,15 +67,24 @@ const Orders = () => {
                 <HeadingContainer className='border-bottom border-bottom-1 border-black'>
                     <RowItem>{item.Name}</RowItem>
                     <RowItem>{item.qty}</RowItem>
-                    <RowItem>{item.status}</RowItem>
-                    <RowItem>{item.qty>1? <p>N{pricify(item.qty*item.Price)} <br/> ({item.Price} x {item.qty})</p>:item.Price}</RowItem>
+                    <RowItem>{item.status}
+                    {item.status!=="paid" &&
+                    <p>
+
+                    <Link to={'/verifying'}>
+                        Request Review
+                    </Link>
+                    </p> 
+                    }
+                    </RowItem>
+                <RowItem>{item.qty>1? <p>N{pricify(item.qty*item.Price)} <br/> ({item.Price} x {item.qty})</p>:<p>{pricify(item.Price)}</p>}</RowItem>
                     
                 </HeadingContainer>
                 </div>
                 )
         }
     </OrdersContainer>
-    </Wrapper>
+    </Wrapper>}
     <Footer/>
     </>
   )

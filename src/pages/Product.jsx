@@ -7,7 +7,8 @@ import SingleProduct from '../components/SingleProduct';
 
 const Product = () => {
     const location= useLocation()
-    const id=location.pathname.split("/")[2];
+    const id=parseInt(location.pathname.split("/")[2]);
+    // console.log(id+1);
 
    
    

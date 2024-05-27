@@ -54,7 +54,7 @@ const SingleProduct = ({id}) => {
     const productItem=products.filter(product=>product.id===id)[0];
     
     
-     const [product]= useState(
+     const [product, setProduct]= useState(
         productItem
         );
     useEffect(()=>{
@@ -77,7 +77,7 @@ const SingleProduct = ({id}) => {
   return (
     <Wrapper className='container'>
         <Heading>
-        {product.Name}
+        {product?.Name}
         </Heading>
         <Row xs={1} lg={2} className='align-items-center'>
             <Col>

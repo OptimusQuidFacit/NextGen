@@ -116,7 +116,8 @@ const ProductList = ({products, filterObject, title}) => {
     useEffect(()=>{
      // filterObject &&  setFilteredProducts(filterObject.Category?products.filter(product=>product.Category===filterObject.Category):products)
       filterObject && handleFilter(filterObject)
-    }, [])
+      // eslint-disable-next-line
+    }, [filterObject])
 
     const [visibleIcon, setVisibleIcon]= useState();
     const toggleVisibility=(id)=>{

@@ -20,7 +20,7 @@
         "dest": "/api/index.js"
       },
       {
-        "src": "/(.*)",
+        "src": "(.*)",
         "dest": "/public/index.html"
       }
     ]

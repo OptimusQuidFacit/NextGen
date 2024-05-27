@@ -116,7 +116,7 @@ const ProductList = ({products, filterObject, title}) => {
     useEffect(()=>{
      // filterObject &&  setFilteredProducts(filterObject.Category?products.filter(product=>product.Category===filterObject.Category):products)
       filterObject && handleFilter(filterObject)
-    }, [filterObject])
+    }, [filterObject, handleFilter])
 
     const [visibleIcon, setVisibleIcon]= useState();
     const toggleVisibility=(id)=>{
@@ -138,7 +138,7 @@ const ProductList = ({products, filterObject, title}) => {
         // necessary to include the condition: favId &&, since favId is set to null 1s after the favId is set
         favId && setFavs([...favs, favId]);
          console.log(favs);
-    }, [favId, favs])
+    }, [favId, favs, setFavs])
 
     const {updateCart}= useContext(CartThemeContext)
 
